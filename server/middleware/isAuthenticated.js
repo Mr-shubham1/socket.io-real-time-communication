@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken"
-
 export const isAuthenticated = (req,res,next)=>{
     try {
         const token = req.cookies.token;
@@ -22,6 +21,4 @@ export const isAuthenticated = (req,res,next)=>{
     } catch (error) {
         console.log("catch error in isAunthicated ",error);
     }
-    
-
 }
