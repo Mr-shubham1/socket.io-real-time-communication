@@ -1,12 +1,27 @@
+import {createBrowserRouter,RouterProvider} from "react-router-dom"
+import Homepage from "./components/Homepage";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 
+const router = createBrowserRouter([
+  {path:"/",
+   element:<Homepage/>
+  },{
+    path:"/signup",
+    element:<Signup/>
+  },
+  {
+    path:"/login",
+    element:<Login/>
+  }
+])
 
 function App() {
   return (
-    <div className="min-h-dvh bg-[#F5F5F5] text-black">
-      <h1>hello</h1>
-      <button className="btn btn-secondary">Secondary</button>
+    <div className="pt-12">
+     <RouterProvider router={router}/>
     </div>
-  );
+  ); 
 }
 
-export default App;
+export default App; 
