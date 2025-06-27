@@ -4,10 +4,16 @@ import dotenv from "dotenv"
 import userRouter from "./routes/userRoute.js";
 import cookieParser from "cookie-parser";
 import messageRouter from "./routes/messageRoute.js";
+import cors from "cors"
 dotenv.config({});
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
+const corsoption = {
+    origin:"http://localhost:3000",
+    credentials:true
+}
+app.use(cors(corsoption));
 
 
 app.use("/api/v1/user",userRouter); 
