@@ -85,7 +85,7 @@ export const logout = (req, res) => {
 }
 export const getotherusers = async (req, res) => {
     try {
-        const loggedInUserId = req.id;
+        const loggedInUserId = req.userId;
         const otherUsers = await userModel.find({ _id: { $ne: loggedInUserId } }).select("-password");
         return res.status(200).json(otherUsers);
     } catch (error) {
