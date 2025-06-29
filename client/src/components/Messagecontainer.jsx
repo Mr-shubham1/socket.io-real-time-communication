@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sendinput from "./Sendinput";
 import Chatbox from "./Chatbox";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import {setSelecteduser} from "../redux/userSlice"
 const Messagecontainer = () => {
-  const {selecteduser} = useSelector(store=>store.user);
+  const {selecteduser,authuser} = useSelector(store=>store.user);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    return ()=>{
+      dispatch(setSelecteduser(null));
+    }
+  },[])
   return (
-    <div className="w-[100%] flex flex-col ">
+    
+      selecteduser !== null?(<div className="w-[100%] flex flex-col ">
         <div className="bg-green-950/80 flex items-center gap-3 py-2 border-b-[1px] border-white/60 ">
           <div className="avatar avatar-online pl-4">
             <div className=" w-12 rounded-full">
@@ -27,7 +34,17 @@ const Messagecontainer = () => {
         <Chatbox/>
         <Sendinput/>
         
+    </div>):(
+      <div className="w-[100%] flex flex-col items-center justify-center ">
+        <img className="w-24 rounded-full cursor-pointer" src={authuser.profilePhoto} alt="profile pic" />
+       <p className="text-2xl font-bold text-white">Hello, {authuser.fullName}</p>
+        <p className="text-xl text-white">let's start conversation</p>
+        
     </div>
+
+    )
+    
+    
   );
 };
 

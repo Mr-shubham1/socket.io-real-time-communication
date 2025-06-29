@@ -1,20 +1,27 @@
 import React from "react";
 import Otheruser from "./Otheruser";
 import useGetotherusers from "../hooks/useGetotherusers";
-import {  useSelector } from "react-redux";
+import {  useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {toast} from "react-hot-toast";
 import {useNavigate} from "react-router-dom"
+import { setAuthuser, setOtherusers } from "../redux/userSlice";
+import {flushSync} from "react-dom"
 
 
 const Otherusers = () => {
   useGetotherusers();
-  
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const logouthandler = async ()=>{
     try {
       const res = await axios.get("http://localhost:8080/api/v1/user/logout");
       toast.success(res.data.message);
+      flushSync(()=>{
+        dispatch(setAuthuser(null));
+        dispatch(setOtherusers(null));
+      })
+      
       navigate("/login")
     } catch (error) {
       console.log(error)
